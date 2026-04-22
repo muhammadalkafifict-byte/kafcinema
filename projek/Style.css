@@ -1,0 +1,119 @@
+:root {
+  --gold:#C9A961;
+  --dark:#0A0A0A;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Poppins;
+  background:var(--dark);
+  color:white;
+}
+
+/* NAVBAR */
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  padding:20px 50px;
+  background:rgba(0,0,0,0.8);
+  z-index:1000;
+}
+
+nav a{
+  color:white;
+  margin-left:15px;
+  text-decoration:none;
+}
+
+/* HERO */
+.hero{
+  height:100vh;
+  margin-top:80px;
+  position:relative;
+}
+
+.bg-video{
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.hero-content{
+  position:relative;
+  top:40%;
+  text-align:center;
+}
+
+.hero h1{
+  font-family:"Playfair Display";
+  font-size:40px;
+}
+
+/* BUTTON */
+.gold{
+  background:var(--gold);
+  border:none;
+  padding:10px 20px;
+  cursor:pointer;
+}
+
+/* SECTION */
+section{
+  padding:80px 50px;
+}
+
+/* MOVIES */
+.movies{
+  text-align:center;
+}
+
+.swiper{
+  margin-top:20px;
+}
+
+.movie-card{
+  background:#111;
+  border-radius:10px;
+  overflow:hidden;
+  text-align:center;
+}
+
+.movie-card img{
+  width:100%;
+  height:300px;
+  object-fit:cover;
+}
+
+/* SEAT */
+.seat-section{
+  text-align:center;
+}
+
+.seat-container{
+  display:flex;
+  flex-wrap:wrap;
+  width:220px;
+  margin:20px auto;
+  justify-content:center;
+}
+
+.seat{
+  width:30px;
+  height:30px;
+  margin:5px;
+  background:#555;
+  cursor:pointer;
+}
+
+.selected{
+  background:gold;
+}

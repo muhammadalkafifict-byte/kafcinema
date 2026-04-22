@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinema XXI Gen Z - Movie & Pizza</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+        body{background:#FDF8F3;color:#3D2C5C;overflow-x:hidden; cursor: none;}
+
+        /* NAVBAR */
+        nav{
+            position:fixed;width:100%;top:0;
+            backdrop-filter:blur(12px);
+            background:rgba(255,255,255,0.6);
+            display:flex;justify-content:space-between;align-items: center;
+            padding:15px 60px;z-index:1000;
+        }
+        .nav-btn {
+            padding: 8px 25px; border-radius: 15px; border: 2px solid #3D2C5C;
+            background: transparent; font-weight: 700; cursor: pointer; transition: 0.3s;
+        }
+
+        /* HERO WITH PIZZA */
+        .hero{
+            height:100vh; display:flex; justify-content:center; align-items:center;
+            gap:30px; text-align:center; padding-top: 50px;
+        }
+        .hero-text h1{
+            font-size:55px; background:linear-gradient(45deg,#8E7AB5,#FFAFCC,#BDE0FE);
+            -webkit-background-clip:text; color:transparent; font-weight: 900;
+        }
+        .hero-images { display: flex; gap: 20px; align-items: center; }
+        .hero img { width: 180px; animation: floaty 3s infinite ease-in-out; }
+        .pizza-img { animation-delay: 0.5s !important; width: 200px !important; }
+
+        @keyframes floaty{
+            0%, 100%{transform:translateY(0) rotate(0deg)}
+            50%{transform:translateY(-20px) rotate(5deg)}
+        }
+
+        /* SECTION STYLE */
+        .section { padding: 60px 10%; }
+        .section-title { text-align: center; font-size: 32px; margin-bottom: 40px; font-weight: 900; }
+        
+        /* MOVIE GRID */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 30px; }
+        .card { background: white; border-radius: 25px; overflow: hidden; transition: 0.4s; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .card:hover { transform: translateY(-10px); }
+        .card img { width: 100%; height: 300px; object-fit: cover; }
+        .card-info { padding: 20px; }
+        .rating { color: #FFB100; font-size: 14px; margin-bottom: 5px; }
+        .price { font-size: 20px; font-weight: 900; color: #8E7AB5; margin: 10px 0; display: block; }
+
+        /* SPINNER */
+        .wheel-box { background: #fff; padding: 40px; border-radius: 40px; max-width: 450px; margin: 0 auto; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.03); }
+        .wheel-container{ position:relative; width:220px; margin:20px auto; }
+        #wheel{
+            width:200px; height:200px; border-radius:50%;
+            background:conic-gradient(#C8B6FF 0 90deg,#FFD6E0 90deg 180deg,#BDE0FE 180deg 270deg,#FFF1A8 270deg 360deg);
+            transition:transform 4s cubic-bezier(.17,.67,.12,.99);
+            border: 5px solid white;
+        }
+        .pointer{ width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 25px solid #3D2C5C; position:absolute; top:-10px; left:50%; transform:translateX(-50%); z-index: 10; }
+
+        /* MODAL */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); }
+        .modal-content { background: white; margin: 10% auto; padding: 40px; border-radius: 35px; width: 90%; max-width: 450px; text-align: center; animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes popUp { from {transform: scale(0.5); opacity: 0;} to {transform: scale(1); opacity: 1;} }
+
+        /* BUTTONS */
+        .btn { width: 100%; padding:14px; border:none; border-radius:18px; background:linear-gradient(45deg,#B8C0FF,#FFD6E0); color: #3D2C5C; font-weight: 700; cursor:pointer; transition: 0.3s; }
+        .btn:hover { transform: scale(1.03); }
+
+        /* CURSOR */
+        .cursor{ width:15px; height:15px; border-radius:50%; position:fixed; background:#FFAFCC; pointer-events:none; z-index: 9999; mix-blend-mode: multiply; }
+        .emoji { position:fixed; font-size:25px; animation:floatUp 2s linear forwards; z-index: 2000; }
+        @keyframes floatUp { to {transform:translateY(-150px); opacity:0;} }
+
+        footer { text-align: center; padding: 40px; opacity: 0.5; }
+    </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<nav>
+    <h1>Cinema ✦ XXI</h1>
+    <button class="nav-btn">Sign In</button>
+</nav>
+
+<section class="hero">
+    <div class="hero-text">
+        <h1>Movies & <br>Cheesy Pizza 🍕</h1>
+        <p>Nonton makin asik dengan snack favoritmu.</p><br>
+        <button class="btn" style="width: auto; padding: 12px 30px;" onclick="document.getElementById('movies').scrollIntoView({behavior:'smooth'})">Lihat Menu & Film</button>
+    </div>
+    <div class="hero-images">
+        <img src="https://cdn-icons-png.flaticon.com/512/3595/3595455.png" alt="popcorn">
+        <img src="https://cdn-icons-png.flaticon.com/512/3595/3595477.png" class="pizza-img" alt="pizza">
+    </div>
+</section>
+
+<section class="section" id="movies">
+    <h2 class="section-title">Now Showing & Snacks 🎬🍕</h2>
+    <div class="grid">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=500" alt="Film">
+            <div class="card-info">
+                <div class="rating">⭐ 4.9/5.0</div>
+                <h3>Interstellar Journey</h3>
+                <span class="price">Rp 45.000</span>
+                <button class="btn" onclick="openOrder('Interstellar Journey', 'Rp 45.000', 'Tiket nonton film sci-fi terbaik tahun ini.')">Beli Tiket</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=500" alt="Pizza">
+            <div class="card-info">
+                <div class="rating">⭐ 5.0/5.0</div>
+                <h3>Cheesy Meat Lovers</h3>
+                <span class="price">Rp 85.000</span>
+                <button class="btn" onclick="openOrder('Cheesy Meat Lovers', 'Rp 85.000', 'Pizza dengan topping daging melimpah dan keju mozarella lumer.')">Pesan Pizza</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=500" alt="Film">
+            <div class="card-info">
+                <div class="rating">⭐ 4.7/5.0</div>
+                <h3>Cyberpunk 2026</h3>
+                <span class="price">Rp 50.000</span>
+                <button class="btn" onclick="openOrder('Cyberpunk 2026', 'Rp 50.000', 'Aksi futuristik di tengah kota neon.')">Beli Tiket</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="wheel-box">
+        <h2 style="margin-bottom: 20px;">Spin & Win 🎡</h2>
+        <div class="wheel-container">
+            <div class="pointer"></div>
+            <div id="wheel"></div>
+        </div>
+        <button class="btn" style="width: auto; padding: 12px 40px; margin-top: 20px;" onclick="spin()">Spin Now!</button>
+        <h3 id="spinResult" style="margin-top: 20px; color: #8E7AB5;"></h3>
+    </div>
+</section>
+
+<div id="orderModal" class="modal">
+    <div class="modal-content">
+        <h2 id="mTitle">Item Name</h2>
+        <p id="mDesc" style="margin: 20px 0; color: #666;"></p>
+        <h3 id="mPrice" style="color: #8E7AB5; font-size: 24px; margin-bottom: 25px;">Harga</h3>
+        <button class="btn" onclick="confirmOrder()">Konfirmasi Pesanan</button>
+        <button class="btn" style="background:#eee; margin-top:10px;" onclick="closeOrder()">Batal</button>
+    </div>
+</div>
+
+<footer>© 2026 Cinema Gen Z • Movies & Pizza Combo! 🍕✨</footer>
+
+<script>
+    const cursor = document.getElementById("cursor");
+    const wheel = document.getElementById("wheel");
+    const spinResult = document.getElementById("spinResult");
+    const modal = document.getElementById("orderModal");
+
+    document.addEventListener("mousemove",(e)=>{
+        cursor.style.top=e.clientY+"px"; cursor.style.left=e.clientX+"px";
+    });
+
+    let rotation = 0;
+    function spin(){
+        const rewards=["🎟 Tiket Gratis","🍿 Popcorn Gratis","🍕 Pizza Slice Gratis","😢 Coba Lagi"];
+        let idx = Math.floor(Math.random()*rewards.length);
+        rotation += (360*5) + (360 - (idx * 90));
+        wheel.style.transform = `rotate(${rotation}deg)`;
+        spinResult.innerText = "Mengundi...";
+        setTimeout(()=>{
+            spinResult.innerText = "Hasil: " + rewards[idx];
+            if(idx !== 3) confetti();
+        }, 4000);
+    }
+
+    function openOrder(t, p, d) {
+        document.getElementById("mTitle").innerText = t;
+        document.getElementById("mPrice").innerText = "Total: " + p;
+        document.getElementById("mDesc").innerText = d;
+        modal.style.display = "block";
+    }
+    function closeOrder() { modal.style.display = "none"; }
+    function confirmOrder() { alert("Pesanan Berhasil! Silahkan tunggu sebentar ya ✨"); closeOrder(); }
+
+    function confetti(){
+        for(let i=0; i<20; i++){
+            let e = document.createElement("div"); e.className = "emoji";
+            e.innerText = ["🍿","🍕","✨","💖"][Math.floor(Math.random()*4)];
+            e.style.left = Math.random()*window.innerWidth+"px"; e.style.top = "80%";
+            document.body.appendChild(e); setTimeout(()=>e.remove(), 2000);
+        }
+    }
+</script>
+</body>
+</html>
